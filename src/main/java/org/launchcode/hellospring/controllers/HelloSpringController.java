@@ -7,32 +7,20 @@ import org.springframework.web.bind.annotation.*;
  * Created by Chris Bay
  */
 @Controller
-public class HelloController {
+public class HelloSpringController {
 
-    //    // Handle request at path /hello
-//    @GetMapping("hello")
-//    @ResponseBody
-//    public String hello() {
-//        return "Hello, Spring!";
-//    }
 
-    @GetMapping("goodbye")
+    // Responds to /hello?name=LaunchCode
+    @RequestMapping(value = "hello", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public String goodbye() {
-        return "Goodbye, Spring!";
-    }
-
-    // Handles requests of the form /hello?name=LaunchCode
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
-    @ResponseBody
-    public String helloWithQueryParam(@RequestParam String name) {
+    public String hello(@RequestParam String name) {
         return "Hello, " + name + "!";
     }
 
-    // Handles requests of the form /hello/LaunchCode
+    // Responds to  /hello/LaunchCode
     @GetMapping("hello/{name}")
     @ResponseBody
-    public String helloWithPathParam(@PathVariable String name) {
+    public String helloAgain(@PathVariable String name) {
         return "Hello, " + name + "!";
     }
 
@@ -40,7 +28,7 @@ public class HelloController {
     @GetMapping("form")
     @ResponseBody
     public String helloForm() {
-        return "<html>" +
+        String html = "<html>" +
                 "<body>" +
                 "<form action = 'hello' method = 'post'>" + // submit a request to /hello
                 "<input type = 'text' name = 'name' >" +
@@ -48,6 +36,7 @@ public class HelloController {
                 "</form>" +
                 "</body>" +
                 "</html>";
+        return html;
     }
 
 }
